@@ -1,0 +1,360 @@
+	var accion_guardar;
+	var url;
+	function fecha_actual() {
+		var x = new Date();
+		var titulo = "movilizacion_"+x.getFullYear()+""+("0"+(x.getMonth() +1)).slice(-2)+""+("0"+x.getDate()).slice(-2)+"_"+("0"+x.getHours()).slice(-2)+""+("0"+x.getMinutes()).slice(-2)+""+("0"+x.getSeconds()).slice(-2);
+		return titulo;		
+	}
+	$.fn.DataTable.ext.pager.numbers_length = 3;
+	$(document).ready(function() {
+		embarques = $('#tbl_embarques').DataTable({
+			"lengthMenu": [[5, 10, 20, 50, 100, 200, -1], [5, 10, 20, 50, 100, 200,  "Todos"]],
+			"iDisplayLength": 10,
+			"columnDefs": [
+			{ width: "15%", targets: 0 }
+			],
+			"ajax": {
+				url : "aeropuertos/get_aeropuerto",
+				type : 'GET'
+			},		
+			"dom": 'lrfBitp',
+			buttons: [
+			{
+				text: "<i class='icon-plus btn btn-lg btn-bluegray'></i>",titleAttr: "Agregar un movilizacion nuevo",
+				action: function (e, dt, node, config) {
+					accion_guardar = 'add';
+					$("#id_registro").hide();
+					$('#userModal').modal('show');
+					$('.modal-title').text('Agreagr un nuevo movilizacion');
+				}
+			},
+			{ extend: 'excel', text: '<i class="fa fa-file-excel-o btn btn-lg btn-info linea-negra"></i>',titleAttr: "Exportar TODOS LOS REGISTROS DEL FILTRO a Excel", 
+			exportOptions: {
+				columns: [1,2,3,4,5,6,7,8]
+			},
+			filename: function() {
+				var x = new Date();
+				var titulo = "movilizacion_"+x.getFullYear()+""+("0"+(x.getMonth() +1)).slice(-2)+""+("0"+x.getDate()).slice(-2)+"_"+("0"+x.getHours()).slice(-2)+""+("0"+x.getMinutes()).slice(-2)+""+("0"+x.getSeconds()).slice(-2);
+				return titulo;
+			}},
+			{ extend: 'excel', text: '<i class="icon-file-excel btn btn-lg btn-success linea-negra"></i>',titleAttr: "Exportar LA PAGINA ACTAUAL a Excel", 
+			exportOptions: {
+				rows:':visible',
+				columns: [1,2,3,4,5,6,7,8]
+			},
+			filename: function() {
+				var x = new Date();
+				var titulo = "movilizacion_"+x.getFullYear()+""+("0"+(x.getMonth() +1)).slice(-2)+""+("0"+x.getDate()).slice(-2)+"_"+("0"+x.getHours()).slice(-2)+""+("0"+x.getMinutes()).slice(-2)+""+("0"+x.getSeconds()).slice(-2);
+				return titulo;
+			}},
+			{ extend: 'pdf', text: '<i class="fa fa-file-pdf-o btn btn-lg btn-primary linea-negra"></i>',titleAttr: "Exportar TODOS LOS REGISTROS DEL FILTRO a PDF", 
+			exportOptions: {
+				columns: [1,2,3,4,5,6,7,8]
+			},
+			filename: function() {
+				var x = new Date();
+				var titulo = "movilizacion_"+x.getFullYear()+""+("0"+(x.getMonth() +1)).slice(-2)+""+("0"+x.getDate()).slice(-2)+"_"+("0"+x.getHours()).slice(-2)+""+("0"+x.getMinutes()).slice(-2)+""+("0"+x.getSeconds()).slice(-2);
+				return titulo;
+			}},
+			{ extend: 'pdf', text: '<i class="icon-file-pdf btn btn-lg btn-warning linea-negra"></i>',titleAttr: "Exportar LA PÁGINA ACTUAL a PDF", 
+			exportOptions: {
+				rows:':visible',
+				columns: [1,2,3,4,5,6,7,8]
+			},
+			filename: function() {
+				var x = new Date();
+				var titulo = "movilizacion_"+x.getFullYear()+""+("0"+(x.getMonth() +1)).slice(-2)+""+("0"+x.getDate()).slice(-2)+"_"+("0"+x.getHours()).slice(-2)+""+("0"+x.getMinutes()).slice(-2)+""+("0"+x.getSeconds()).slice(-2);
+				return titulo;
+			}},
+
+			{ extend: 'csv', text: '<i class="fa fa-file-text-o btn btn-lg btn-danger"></i>',titleAttr: "Exportar TODOS LOS REGISTROS DEL FILTRO a CSV", 
+			exportOptions: {
+				columns: [1,2,3,4,5,6,7,8]
+			},
+			filename: function() {
+				var x = new Date();
+				var titulo = "movilizacion_"+x.getFullYear()+""+("0"+(x.getMonth() +1)).slice(-2)+""+("0"+x.getDate()).slice(-2)+"_"+("0"+x.getHours()).slice(-2)+""+("0"+x.getMinutes()).slice(-2)+""+("0"+x.getSeconds()).slice(-2);
+				return titulo;
+			}},
+
+			{ extend: 'csv', text: '<i class="icon-libreoffice btn btn-lg btn-verdeoscuro"></i>',titleAttr: "Exportar LA PÁGINA ACTUAL a CSV", 
+			exportOptions: {
+				rows:':visible',
+				columns: [1,2,3,4,5,6,7,8]
+			},
+			filename: function() {
+				var x = new Date();
+				var titulo = "movilizacion_"+x.getFullYear()+""+("0"+(x.getMonth() +1)).slice(-2)+""+("0"+x.getDate()).slice(-2)+"_"+("0"+x.getHours()).slice(-2)+""+("0"+x.getMinutes()).slice(-2)+""+("0"+x.getSeconds()).slice(-2);
+				return titulo;
+			}},
+			{ extend: 'print', text: '<i class="fa fa-print btn btn-lg btn-naranjaoscuro"></i>',titleAttr: "Imprimir TODOS LOS REGISTROS DEL FILTRO",
+			exportOptions: {
+				columns: [1,2,3,4,5,6,7,8]
+			}},
+			{ extend: 'print', text: '<i class="icon-printer btn btn-lg btn-purpura"></i>',titleAttr: "Imprimir LA PÁGINA ACTUAL",
+			exportOptions: {
+				rows: ':visible',
+				columns: [1,2,3,4,5,6,7,8]
+			}
+		}],	
+		"language": {
+			"sProcessing":     "Procesando...",
+			"sLengthMenu":     "Mostrar _MENU_ registros",
+			"sZeroRecords":    "No se encontraron resultados",
+			"sEmptyTable":     "Ningún dato disponible en esta tabla",
+			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+			"sInfoPostFix":    "",
+			"sSearch":         "Buscar:",
+			"sUrl":            "",
+			"sInfoThousands":  ".",
+			"sLoadingRecords": "Cargando...",
+			"oPaginate": {
+				"sFirst":    "Primero",
+				"sLast":     "Último",
+				"sNext":     "Siguiente",
+				"sPrevious": "Anterior"
+			},
+			"oAria": {
+				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			}
+		},
+		"aaSorting": [ [1,'asc'] ]
+	});
+
+	desembarques = $('#tbl_desembarques').DataTable({
+		"lengthMenu": [[5, 10, 20, 50, 100, 200, -1], [5, 10, 20, 50, 100, 200,  "Todos"]],
+		"iDisplayLength": 10,
+		"columnDefs": [
+		{ width: "15%", targets: 0 }
+		],
+		"ajax": {
+			url : "estados/get_estado",
+			type : 'GET'
+		},		
+		"dom": 'lrfBitp',
+		buttons: [
+		{
+			text: "<i class='icon-plus btn btn-lg btn-bluegray'></i>",titleAttr: "Agregar un movilizacion nuevo",
+			action: function (e, dt, node, config) {
+				accion_guardar = 'add';
+				$("#id_registro").hide();
+				$('#userModal').modal('show');
+				$('.modal-title').text('Agreagr un nuevo movilizacion');
+			}
+		},
+		{ extend: 'excel', text: '<i class="fa fa-file-excel-o btn btn-lg btn-info linea-negra"></i>',titleAttr: "Exportar TODOS LOS REGISTROS DEL FILTRO a Excel", 
+		exportOptions: {
+			columns: [1,2,3,4,5,6,7,8]
+		},
+		filename: function() {
+			var x = new Date();
+			var titulo = "movilizacion_"+x.getFullYear()+""+("0"+(x.getMonth() +1)).slice(-2)+""+("0"+x.getDate()).slice(-2)+"_"+("0"+x.getHours()).slice(-2)+""+("0"+x.getMinutes()).slice(-2)+""+("0"+x.getSeconds()).slice(-2);
+			return titulo;
+		}},
+		{ extend: 'excel', text: '<i class="icon-file-excel btn btn-lg btn-success linea-negra"></i>',titleAttr: "Exportar LA PAGINA ACTAUAL a Excel", 
+		exportOptions: {
+			rows:':visible',
+			columns: [1,2,3,4,5,6,7,8]
+		},
+		filename: function() {
+			var x = new Date();
+			var titulo = "movilizacion_"+x.getFullYear()+""+("0"+(x.getMonth() +1)).slice(-2)+""+("0"+x.getDate()).slice(-2)+"_"+("0"+x.getHours()).slice(-2)+""+("0"+x.getMinutes()).slice(-2)+""+("0"+x.getSeconds()).slice(-2);
+			return titulo;
+		}},
+		{ extend: 'pdf', text: '<i class="fa fa-file-pdf-o btn btn-lg btn-primary linea-negra"></i>',titleAttr: "Exportar TODOS LOS REGISTROS DEL FILTRO a PDF", 
+		exportOptions: {
+			columns: [1,2,3,4,5,6,7,8]
+		},
+		filename: function() {
+			var x = new Date();
+			var titulo = "movilizacion_"+x.getFullYear()+""+("0"+(x.getMonth() +1)).slice(-2)+""+("0"+x.getDate()).slice(-2)+"_"+("0"+x.getHours()).slice(-2)+""+("0"+x.getMinutes()).slice(-2)+""+("0"+x.getSeconds()).slice(-2);
+			return titulo;
+		}},
+		{ extend: 'pdf', text: '<i class="icon-file-pdf btn btn-lg btn-warning linea-negra"></i>',titleAttr: "Exportar LA PÁGINA ACTUAL a PDF", 
+		exportOptions: {
+			rows:':visible',
+			columns: [1,2,3,4,5,6,7,8]
+		},
+		filename: function() {
+			var x = new Date();
+			var titulo = "movilizacion_"+x.getFullYear()+""+("0"+(x.getMonth() +1)).slice(-2)+""+("0"+x.getDate()).slice(-2)+"_"+("0"+x.getHours()).slice(-2)+""+("0"+x.getMinutes()).slice(-2)+""+("0"+x.getSeconds()).slice(-2);
+			return titulo;
+		}},
+
+		{ extend: 'csv', text: '<i class="fa fa-file-text-o btn btn-lg btn-danger"></i>',titleAttr: "Exportar TODOS LOS REGISTROS DEL FILTRO a CSV", 
+		exportOptions: {
+			columns: [1,2,3,4,5,6,7,8]
+		},
+		filename: function() {
+			var x = new Date();
+			var titulo = "movilizacion_"+x.getFullYear()+""+("0"+(x.getMonth() +1)).slice(-2)+""+("0"+x.getDate()).slice(-2)+"_"+("0"+x.getHours()).slice(-2)+""+("0"+x.getMinutes()).slice(-2)+""+("0"+x.getSeconds()).slice(-2);
+			return titulo;
+		}},
+
+		{ extend: 'csv', text: '<i class="icon-libreoffice btn btn-lg btn-verdeoscuro"></i>',titleAttr: "Exportar LA PÁGINA ACTUAL a CSV", 
+		exportOptions: {
+			rows:':visible',
+			columns: [1,2,3,4,5,6,7,8]
+		},
+		filename: function() {
+			var x = new Date();
+			var titulo = "movilizacion_"+x.getFullYear()+""+("0"+(x.getMonth() +1)).slice(-2)+""+("0"+x.getDate()).slice(-2)+"_"+("0"+x.getHours()).slice(-2)+""+("0"+x.getMinutes()).slice(-2)+""+("0"+x.getSeconds()).slice(-2);
+			return titulo;
+		}},
+		{ extend: 'print', text: '<i class="fa fa-print btn btn-lg btn-naranjaoscuro"></i>',titleAttr: "Imprimir TODOS LOS REGISTROS DEL FILTRO",
+		exportOptions: {
+			columns: [1,2,3,4,5,6,7,8]
+		}},
+		{ extend: 'print', text: '<i class="icon-printer btn btn-lg btn-purpura"></i>',titleAttr: "Imprimir LA PÁGINA ACTUAL",
+		exportOptions: {
+			rows: ':visible',
+			columns: [1,2,3,4,5,6,7,8]
+		}
+	}],	
+	"language": {
+		"sProcessing":     "Procesando...",
+		"sLengthMenu":     "Mostrar _MENU_ registros",
+		"sZeroRecords":    "No se encontraron resultados",
+		"sEmptyTable":     "Ningún dato disponible en esta tabla",
+		"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+		"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+		"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+		"sInfoPostFix":    "",
+		"sSearch":         "Buscar:",
+		"sUrl":            "",
+		"sInfoThousands":  ".",
+		"sLoadingRecords": "Cargando...",
+		"oPaginate": {
+			"sFirst":    "Primero",
+			"sLast":     "Último",
+			"sNext":     "Siguiente",
+			"sPrevious": "Anterior"
+		},
+		"oAria": {
+			"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+			"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+		}
+	},
+	"aaSorting": [ [1,'asc'] ]
+});
+
+	despeques = $('#tbl_despegues').DataTable({
+		"lengthMenu": [[5, 10, 20, 50, 100, 200, -1], [5, 10, 20, 50, 100, 200,  "Todos"]],
+		"iDisplayLength": 10,
+		"columnDefs": [
+		{ width: "15%", targets: 0 }
+		],
+		"ajax": {
+			url : "tipos/get_tipo",
+			type : 'GET'
+		},		
+		"dom": 'lrfBitp',
+		buttons: [
+		{
+			text: "<i class='icon-plus btn btn-lg btn-bluegray'></i>",titleAttr: "Agregar un movilizacion nuevo",
+			action: function (e, dt, node, config) {
+				accion_guardar = 'add';
+				$("#id_registro").hide();
+				$('#userModal').modal('show');
+				$('.modal-title').text('Agreagr un nuevo movilizacion');
+			}
+		},
+		{ extend: 'excel', text: '<i class="fa fa-file-excel-o btn btn-lg btn-info linea-negra"></i>',titleAttr: "Exportar TODOS LOS REGISTROS DEL FILTRO a Excel", 
+		exportOptions: {
+			columns: [1,2,3,4,5,6,7,8]
+		},
+		filename: function() {
+			var x = new Date();
+			var titulo = "movilizacion_"+x.getFullYear()+""+("0"+(x.getMonth() +1)).slice(-2)+""+("0"+x.getDate()).slice(-2)+"_"+("0"+x.getHours()).slice(-2)+""+("0"+x.getMinutes()).slice(-2)+""+("0"+x.getSeconds()).slice(-2);
+			return titulo;
+		}},
+		{ extend: 'excel', text: '<i class="icon-file-excel btn btn-lg btn-success linea-negra"></i>',titleAttr: "Exportar LA PAGINA ACTAUAL a Excel", 
+		exportOptions: {
+			rows:':visible',
+			columns: [1,2,3,4,5,6,7,8]
+		},
+		filename: function() {
+			var x = new Date();
+			var titulo = "movilizacion_"+x.getFullYear()+""+("0"+(x.getMonth() +1)).slice(-2)+""+("0"+x.getDate()).slice(-2)+"_"+("0"+x.getHours()).slice(-2)+""+("0"+x.getMinutes()).slice(-2)+""+("0"+x.getSeconds()).slice(-2);
+			return titulo;
+		}},
+		{ extend: 'pdf', text: '<i class="fa fa-file-pdf-o btn btn-lg btn-primary linea-negra"></i>',titleAttr: "Exportar TODOS LOS REGISTROS DEL FILTRO a PDF", 
+		exportOptions: {
+			columns: [1,2,3,4,5,6,7,8]
+		},
+		filename: function() {
+			var x = new Date();
+			var titulo = "movilizacion_"+x.getFullYear()+""+("0"+(x.getMonth() +1)).slice(-2)+""+("0"+x.getDate()).slice(-2)+"_"+("0"+x.getHours()).slice(-2)+""+("0"+x.getMinutes()).slice(-2)+""+("0"+x.getSeconds()).slice(-2);
+			return titulo;
+		}},
+		{ extend: 'pdf', text: '<i class="icon-file-pdf btn btn-lg btn-warning linea-negra"></i>',titleAttr: "Exportar LA PÁGINA ACTUAL a PDF", 
+		exportOptions: {
+			rows:':visible',
+			columns: [1,2,3,4,5,6,7,8]
+		},
+		filename: function() {
+			var x = new Date();
+			var titulo = "movilizacion_"+x.getFullYear()+""+("0"+(x.getMonth() +1)).slice(-2)+""+("0"+x.getDate()).slice(-2)+"_"+("0"+x.getHours()).slice(-2)+""+("0"+x.getMinutes()).slice(-2)+""+("0"+x.getSeconds()).slice(-2);
+			return titulo;
+		}},
+
+		{ extend: 'csv', text: '<i class="fa fa-file-text-o btn btn-lg btn-danger"></i>',titleAttr: "Exportar TODOS LOS REGISTROS DEL FILTRO a CSV", 
+		exportOptions: {
+			columns: [1,2,3,4,5,6,7,8]
+		},
+		filename: function() {
+			var x = new Date();
+			var titulo = "movilizacion_"+x.getFullYear()+""+("0"+(x.getMonth() +1)).slice(-2)+""+("0"+x.getDate()).slice(-2)+"_"+("0"+x.getHours()).slice(-2)+""+("0"+x.getMinutes()).slice(-2)+""+("0"+x.getSeconds()).slice(-2);
+			return titulo;
+		}},
+
+		{ extend: 'csv', text: '<i class="icon-libreoffice btn btn-lg btn-verdeoscuro"></i>',titleAttr: "Exportar LA PÁGINA ACTUAL a CSV", 
+		exportOptions: {
+			rows:':visible',
+			columns: [1,2,3,4,5,6,7,8]
+		},
+		filename: function() {
+			var x = new Date();
+			var titulo = "movilizacion_"+x.getFullYear()+""+("0"+(x.getMonth() +1)).slice(-2)+""+("0"+x.getDate()).slice(-2)+"_"+("0"+x.getHours()).slice(-2)+""+("0"+x.getMinutes()).slice(-2)+""+("0"+x.getSeconds()).slice(-2);
+			return titulo;
+		}},
+		{ extend: 'print', text: '<i class="fa fa-print btn btn-lg btn-naranjaoscuro"></i>',titleAttr: "Imprimir TODOS LOS REGISTROS DEL FILTRO",
+		exportOptions: {
+			columns: [1,2,3,4,5,6,7,8]
+		}},
+		{ extend: 'print', text: '<i class="icon-printer btn btn-lg btn-purpura"></i>',titleAttr: "Imprimir LA PÁGINA ACTUAL",
+		exportOptions: {
+			rows: ':visible',
+			columns: [1,2,3,4,5,6,7,8]
+		}
+	}],	
+	"language": {
+		"sProcessing":     "Procesando...",
+		"sLengthMenu":     "Mostrar _MENU_ registros",
+		"sZeroRecords":    "No se encontraron resultados",
+		"sEmptyTable":     "Ningún dato disponible en esta tabla",
+		"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+		"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+		"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+		"sInfoPostFix":    "",
+		"sSearch":         "Buscar:",
+		"sUrl":            "",
+		"sInfoThousands":  ".",
+		"sLoadingRecords": "Cargando...",
+		"oPaginate": {
+			"sFirst":    "Primero",
+			"sLast":     "Último",
+			"sNext":     "Siguiente",
+			"sPrevious": "Anterior"
+		},
+		"oAria": {
+			"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+			"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+		}
+	},
+	"aaSorting": [ [1,'asc'] ]
+});
+});

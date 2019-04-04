@@ -1,0 +1,883 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"log",
+				"login_usuario"
+			],
+			[
+				"clave",
+				"clave_usuario"
+			],
+			[
+				"export",
+				"exportOptions"
+			],
+			[
+				"data",
+				"data_actual"
+			],
+			[
+				"data_",
+				"data_previa"
+			],
+			[
+				"l",
+				"label\tTag"
+			],
+			[
+				"r",
+				"row"
+			],
+			[
+				"backgroun",
+				"background-color"
+			],
+			[
+				"max",
+				"max-width"
+			],
+			[
+				"SQL",
+				"sql"
+			],
+			[
+				"query",
+				"query1"
+			],
+			[
+				"json",
+				"json_encode"
+			],
+			[
+				"coor",
+				"color"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"vist",
+				"visitas"
+			],
+			[
+				"id",
+				"id_piso"
+			],
+			[
+				"html",
+				"htmlspecialchars"
+			],
+			[
+				"a",
+				"ajax\t$.ajax()"
+			],
+			[
+				"get_",
+				"get_destino"
+			],
+			[
+				"desti",
+				"destinoDropdown"
+			],
+			[
+				"des",
+				"destinoDropdown"
+			],
+			[
+				"base_",
+				"base_url"
+			],
+			[
+				"employee",
+				"employee_model"
+			],
+			[
+				"col",
+				"col-sm-8"
+			],
+			[
+				"te",
+				"text-danger"
+			],
+			[
+				"emplo",
+				"employeename"
+			],
+			[
+				"contr",
+				"control-label"
+			],
+			[
+				"dep",
+				"department_name"
+			],
+			[
+				"img",
+				"img-hover"
+			],
+			[
+				"create",
+				"create_menu"
+			],
+			[
+				"CI_",
+				"CI_auth"
+			],
+			[
+				"blo",
+				"center-block"
+			],
+			[
+				"tex",
+				"texto-centrado"
+			],
+			[
+				"for",
+				"form-control"
+			],
+			[
+				"B",
+				"block-center"
+			],
+			[
+				"T",
+				"text-center"
+			],
+			[
+				"t",
+				"text"
+			],
+			[
+				"b",
+				"block-center"
+			],
+			[
+				"in",
+				"input\tTag"
+			],
+			[
+				"bg-",
+				"bg-success"
+			],
+			[
+				"bg",
+				"bg-success"
+			],
+			[
+				"fo",
+				"form-control"
+			],
+			[
+				"pull",
+				"pull-right"
+			],
+			[
+				"col-",
+				"md-col-6"
+			],
+			[
+				"di",
+				"div\tTag"
+			],
+			[
+				"op",
+				"option\tTag"
+			],
+			[
+				"opt",
+				"option\tTag"
+			],
+			[
+				"controles",
+				"controles_tablas"
+			],
+			[
+				"con",
+				"controles_tablas"
+			],
+			[
+				"div",
+				"div_destino"
+			],
+			[
+				"get",
+				"getElementById"
+			],
+			[
+				"ini",
+				"inicio"
+			],
+			[
+				"cant",
+				"cantidad_global"
+			],
+			[
+				"div_",
+				"div_destino_global"
+			],
+			[
+				"boo",
+				"bootstrap_global"
+			],
+			[
+				"cons",
+				"consulta_global"
+			],
+			[
+				"fila",
+				"fila_actual"
+			],
+			[
+				"table-",
+				"table-inverse"
+			],
+			[
+				"head",
+				"head\tTag"
+			],
+			[
+				"pg_fetch",
+				"pg_fetch_row"
+			],
+			[
+				"pg",
+				"pg_connect"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "aplicacion/vistas/plantillas/menu_lateral.php",
+			"settings":
+			{
+				"buffer_size": 3339,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 38.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: install",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"Soda",
+				"Preferences: Package Control Settings – Default"
+			],
+			[
+				"Pack",
+				"Install Package Control"
+			]
+		],
+		"width": 476.0
+	},
+	"console":
+	{
+		"height": 69.0,
+		"history":
+		[
+			"echo $papa",
+			"echo $papa;",
+			"$pap = 1;",
+			"echo \"1\";",
+			"echo 1;",
+			"import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/proyectos/scv",
+		"/D/proyectos/scv/aplicacion",
+		"/D/proyectos/scv/aplicacion/controllers",
+		"/D/proyectos/scv/aplicacion/vistas",
+		"/D/proyectos/scv/aplicacion/vistas/plantillas",
+		"/D/proyectos/scv/aplicacion/vistas/seguridad",
+		"/D/proyectos/scv/js",
+		"/D/proyectos/scv/js/tablas"
+	],
+	"file_history":
+	[
+		"/D/proyectos/scv/aplicacion/controllers/Usuarios.php",
+		"/D/proyectos/scv/aplicacion/vistas/seguridad/usuarios_view.php",
+		"/D/proyectos/scv/js/tablas/tabla_usuarios.js",
+		"/D/proyectos/scv/aplicacion/models/usuarios_model.php",
+		"/D/proyectos/scv/aplicacion/controllers/Regvisitas.php",
+		"/D/proyectos/scv/aplicacion/vistas/visitas/visitas_activas_view.php",
+		"/D/proyectos/scv/aplicacion/vistas/visitas/resultados_view.php",
+		"/D/proyectos/scv/aplicacion/models/regvisitas_model.php",
+		"/D/proyectos/scv/js/funciones.js",
+		"/D/proyectos/scv/js/tablas/tabla_motivo.js",
+		"/D/proyectos/scv/js/funciones2.js",
+		"/D/proyectos/scv/js/ga.js",
+		"/D/proyectos/scv/aplicacion/vistas/seguridad/grupos_view.php",
+		"/D/proyectos/scv/aplicacion/controllers/Grupos.php",
+		"/D/proyectos/scv/scv.sublime-project",
+		"/D/proyectos/scv/index.php",
+		"/D/proyectos/scv/aplicacion/controllers/Pisos.php",
+		"/D/proyectos/scv/aplicacion/vistas/auxiliares/pisos_view.php",
+		"/D/proyectos/scv/aplicacion/models/pisos_model.php",
+		"/D/proyectos/scv/aplicacion/controllers/Seguridad.php",
+		"/D/proyectos/scv/aplicacion/controllers/Activos.php",
+		"/D/proyectos/scv/aplicacion/vistas/auxiliares/tipovisitante_view.php",
+		"/D/proyectos/scv/aplicacion/controllers/Welcome.php",
+		"/D/proyectos/scv/aplicacion/vistas/auxiliares/procedencia_view.php",
+		"/D/proyectos/scv/aplicacion/controllers/Procedencia.php",
+		"/D/proyectos/scv/aplicacion/vistas/auxiliares/motivo_view.php",
+		"/D/proyectos/scv/aplicacion/models/motivo_model.php",
+		"/D/proyectos/scv/aplicacion/controllers/Motivo.php",
+		"/D/proyectos/scv/sistema/core/Common.php",
+		"/D/proyectos/scv/sistema/core/CodeIgniter.php",
+		"/D/proyectos/scv/js/tablas/tabla.js",
+		"/D/proyectos/scv/aplicacion/vistas/carnets/carnets_view.php",
+		"/D/proyectos/scv/js/tablas/tabla_pisos.js",
+		"/D/proyectos/scv/aplicacion/hooks/DBlog_Hook.php",
+		"/D/proyectos/scv/js/tablas/tabla_carnets.js",
+		"/D/proyectos/scv/aplicacion/vistas/auxiliares/destino_view.php",
+		"/D/proyectos/scv/js/tablas/tabla_destino.js",
+		"/D/proyectos/scv/js/tablas/tabla_procedencia.js",
+		"/D/proyectos/scv/js/tablas/tabla_tipovisitante.js",
+		"/D/proyectos/scv/js/tablas/tabla_listar_visitante.js",
+		"/D/proyectos/scv/aplicacion/vistas/plantillas/menu_lateral.php",
+		"/D/proyectos/scv/aplicacion/vistas/visitas/mostrar_visitas_view.php",
+		"/D/proyectos/scv/aplicacion/vistas/visitas/listar_visita_view.php",
+		"/D/proyectos/scv/css/estilos.css",
+		"/D/proyectos/scv/aplicacion/vistas/graficos/graficos_view.php",
+		"/D/proyectos/scv/aplicacion/vistas/plantillas/menu_superior.php",
+		"/D/proyectos/scv/css/estilos_impresion.css",
+		"/D/proyectos/scv/aplicacion/controllers/Graficos.php",
+		"/D/proyectos/scv/aplicacion/models/graficos_model.php",
+		"/D/proyectos/scv/aplicacion/vistas/plantillas/encabezado.php",
+		"/D/proyectos/scv/aplicacion/vistas/plantillas/pie.php",
+		"/D/proyectos/scv/js/graficos_pr.js",
+		"/D/proyectos/scv/adicionales/admin/chart-chartjs.html",
+		"/D/proyectos/scv/assets/chart-master/Chart.min.js",
+		"/D/proyectos/scv/assets/chart-master/site/assets/Chart.js",
+		"/D/proyectos/scv/aplicacion/vistas/graficos/graficos_view_dinamico_semi_funcional.php",
+		"/D/proyectos/scv/aplicacion/vistas/graficos/graficos_view_hardcoded_funcional.php",
+		"/D/proyectos/scv/aplicacion/vistas/auditoria/auditoria_view.php",
+		"/D/proyectos/scv/aplicacion/models/auditoria_model.php",
+		"/D/proyectos/scv/aplicacion/controllers/Auditoria.php",
+		"/D/proyectos/scv/js/tablas/tabla_auditoria.js",
+		"/D/proyectos/minpi_code/assets/php/cuerpo_categoria.php",
+		"/D/proyectos/scv/aplicacion/hooks/DBlog_Hook_viejo.php",
+		"/D/proyectos/scv/aplicacion/controllers/Login.php",
+		"/D/proyectos/scv/aplicacion/models/destino_model.php",
+		"/D/proyectos/scv/aplicacion/config/hooks.php",
+		"/D/proyectos/scv/aplicacion/hooks/db_log.php",
+		"/D/proyectos/tema/aplicacion/config/hooks.php",
+		"/D/proyectos/scv/sistema/database/DB_driver.php",
+		"/D/proyectos/scv/sistema/database/DB_query_builder_envenenado.php",
+		"/D/Usuarios/SISTEMAS/Descargas/Trigger generico para cambios.sql",
+		"/D/proyectos/scv/aplicacion/controllers/Destino.php",
+		"/D/proyectos/scv/sistema/database/DB_utility.php",
+		"/D/proyectos/scv/sistema/database/DB.php",
+		"/D/proyectos/scv/sistema/database/DB_cache.php",
+		"/D/proyectos/scv/sistema/database/DB_result.php",
+		"/D/proyectos/scv/sistema/database/DB_forge.php",
+		"/D/proyectos/scv/sistema/database/DB_query_builder.php",
+		"/D/proyectos/scv/aplicacion/controllers/Upload.php",
+		"/D/proyectos/scv/aplicacion/vistas/visitas/busqueda_view.php",
+		"/D/proyectos/scv/aplicacion/vistas/visitas/detalle_visitante_view.php",
+		"/D/proyectos/scv/js/tablas/tabla_activos.js",
+		"/D/proyectos/scv/assets/picEdit/js/picedit.js",
+		"/D/proyectos/scv/assets/picEdit/css/picedit.css",
+		"/C/wamp64/bin/apache/apache2.4.27/bin/php.ini",
+		"/D/proyectos/scv/js/picedit.js",
+		"/D/proyectos/scv/assets/picEdit/js/picedit_backup.js",
+		"/C/Users/SISTEMAS/AppData/Local/Temp/Rar$DIa0.085/resultados_view.php",
+		"/C/wamp64/www/picedit/picEdit/dist/js/picedit.js",
+		"/C/wamp64/www/picedit/picEdit/src/css/picedit.css",
+		"/C/wamp64/www/webcam/text.php",
+		"/C/wamp64/www/webcam/jquery.webcam.js",
+		"/C/wamp64/www/webcam/text.html",
+		"/D/proyectos/scv/aplicacion/config/autoload.php",
+		"/D/proyectos/scv/aplicacion/config/config.php",
+		"/D/proyectos/scv/aplicacion/controllers/Tipovisitante.php",
+		"/D/proyectos/scv/aplicacion/controllers/Carnets.php",
+		"/C/Users/SISTEMAS/AppData/Local/Temp/Rar$DIa0.133/menu_lateral.php",
+		"/D/proyectos/scv/aplicacion/models/carnets_model.php",
+		"/D/proyectos/scv/aplicacion/models/carnets_model.rar",
+		"/D/proyectos/scv/aplicacion/models/tipovisitante_model.php",
+		"/D/proyectos/scv/aplicacion/models/procedencia_model.php",
+		"/D/proyectos/scv/js/tablas/tabla_tipo_visitante.js",
+		"/D/proyectos/scv/aplicacion/controllers/Tipo_visitante.php",
+		"/D/proyectos/scv/aplicacion/models/tipo_visitante_model.php",
+		"/D/proyectos/scv/aplicacion/vistas/auxiliares/tipo_visitante_view.php",
+		"/D/proyectos/scv/js/tablas/tabla_motivos.js",
+		"/D/proyectos/scv/aplicacion/vistas/auxiliares/motivos_view.php",
+		"/D/proyectos/scv/aplicacion/models/motivos_model.php",
+		"/D/proyectos/scv/aplicacion/controllers/Motivos.php",
+		"/D/proyectos/crud2/application/views/view_Detail.php",
+		"/D/proyectos/crud2/application/views/content.php",
+		"/D/proyectos/crud2/application/views/person_view.php",
+		"/D/proyectos/crud2/application/config/database.php",
+		"/D/proyectos/crud2/application/config/config.php",
+		"/D/proyectos/crud2/application/views/welcome_message.php",
+		"/D/proyectos/crud2/application/controllers/Person.php",
+		"/D/proyectos/crud/application/config/database.php",
+		"/D/proyectos/crud/application/config/routes.php",
+		"/D/proyectos/crud/application/config/config.php",
+		"/D/proyectos/crud/application/config/autoload.php",
+		"/D/proyectos/tema/aplicacion/vistas/plantillas/menu_lateral.php",
+		"/D/proyectos/tema/aplicacion/vistas/visitas/buscar_visita_view.php",
+		"/D/proyectos/tema/aplicacion/vistas/visitas/listar_visita_view.php",
+		"/D/proyectos/tema/aplicacion/models/regvisitas_model.php",
+		"/D/proyectos/tema/aplicacion/controllers/Regvisitas.php",
+		"/D/proyectos/tema/aplicacion/vistas/visitas/visita_abierta_view.php",
+		"/D/proyectos/tema/aplicacion/vistas/visitas/resultados_view.php"
+	],
+	"find":
+	{
+		"height": 43.0
+	},
+	"find_in_files":
+	{
+		"height": 110.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"(':ischecked')",
+			"check",
+			"rol",
+			"hidden",
+			"pepe",
+			"alert"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "aplicacion/vistas/plantillas/menu_lateral.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3339,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2645,
+								2645
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.clone": -1,
+							"bracket_highlighter.clone_locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.clone_regions":
+							[
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										3250,
+										3252
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/tag.png",
+										"region.orangish"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										2625,
+										2627
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1386.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 30.0
+	},
+	"input":
+	{
+		"height": 48.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.SublimeLinter":
+	{
+		"height": 0.0
+	},
+	"output.SublimeLinter Messages":
+	{
+		"height": 144.0
+	},
+	"output.exec":
+	{
+		"height": 144.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.mdpopups":
+	{
+		"height": 0.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 102.0
+	},
+	"output.xdebug":
+	{
+		"height": 144.0
+	},
+	"pinned_build_system": "",
+	"project": "scv.sublime-project",
+	"replace":
+	{
+		"height": 56.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+		"xdebug":
+		{
+			"restore_index":
+			{
+				"234":
+				{
+					"group": 0,
+					"index": 0
+				},
+				"236":
+				{
+					"group": 0,
+					"index": 3
+				},
+				"237":
+				{
+					"group": 0,
+					"index": 1
+				},
+				"238":
+				{
+					"group": 0,
+					"index": 2
+				},
+				"274":
+				{
+					"group": 0,
+					"index": 6
+				},
+				"275":
+				{
+					"group": 0,
+					"index": 4
+				},
+				"276":
+				{
+					"group": 0,
+					"index": 5
+				},
+				"277":
+				{
+					"group": 1,
+					"index": 0
+				}
+			},
+			"restore_layout":
+			{
+				"cells":
+				[
+					[
+						0,
+						0,
+						2,
+						1
+					],
+					[
+						0,
+						1,
+						1,
+						2
+					],
+					[
+						1,
+						1,
+						2,
+						2
+					]
+				],
+				"cols":
+				[
+					0.0,
+					0.5,
+					1.0
+				],
+				"rows":
+				[
+					0.0,
+					0.410691823899,
+					1.0
+				]
+			}
+		}
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 248.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

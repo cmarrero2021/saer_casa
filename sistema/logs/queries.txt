@@ -1,0 +1,45 @@
+UPDATE "destinos" SET "id_piso" = '1', "id_oficina" = '14', "destino" = 'TRANSPORTE' WHERE "id_destino" = '1'
+UPDATE "destinos" SET "id_piso" = '1', "id_oficina" = '14', "destino" = 'TRANSPORTES' WHERE "id_destino" = '1'
+INSERT INTO "destinos" ("id_piso", "id_oficina", "destino") VALUES ('1', '14', 'JKHKH')
+DELETE FROM "destinos" WHERE "id_destino" = '41'
+INSERT INTO "destinos" ("id_piso", "id_oficina", "destino") VALUES ('5', '7', 'FSDFSDFS')
+UPDATE "destinos" SET "id_piso" = '5', "id_oficina" = '7', "destino" = 'FSDFSDFSGDGDFG' WHERE "id_destino" = '42'
+DELETE FROM "destinos" WHERE "id_destino" = '42'
+UPDATE "destinos" SET "id_piso" = '4', "id_oficina" = '6', "destino" = '45FGDFG' WHERE "id_destino" = '44'CI: 7920566
+UPDATE "destinos" SET "id_piso" = '4', "id_oficina" = '6', "destino" = 'CCCCCCCCCCCC' WHERE "id_destino" = '44' CI: 
+UPDATE "destinos" SET "id_piso" = '4', "id_oficina" = '6', "destino" = 'DDDDDDDDDD' WHERE "id_destino" = '44' CI: '7920566'
+UPDATE "destinos" SET "id_piso" = '4', "id_oficina" = '6', "destino" = 'FFFFF' WHERE "id_destino" = '44' CI: 7920566
+UPDATE "destinos" SET "id_piso" = '4', "id_oficina" = '6', "destino" = 'GGGGG' WHERE "id_destino" = '44' CI: 7920566
+UPDATE "procedencias" SET "procedencia" = '_PÚBLICO GENERALS' WHERE "id_procedencia" = '1'
+INSERT INTO "motivos" ("motivo") VALUES ('GDFGDF')
+UPDATE "motivos" SET "motivo" = '5464NKLJNM,NM,' WHERE "id_motivo" = '12'
+DELETE FROM "motivos" WHERE "id_motivo" = '12'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJOSDFG' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJO' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJOFGDFG' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJOFGDFGFGFDG' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJO' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJOFDSSADF' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJO' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJODFSSDF' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJO5643TGRT' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJO' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJOCVXV' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJO' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJOSDFFSADF' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJO' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJOSD' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJOS' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJO' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJOZXCZ<XCC' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJO' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJODFSDFD' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJO' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJOSDAASDAD' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJO' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJOJHUY87T' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'ASISTIR A REUNIÓN DE TRABAJO' WHERE "id_motivo" = '1'
+UPDATE "motivos" SET "motivo" = 'SOLICITAR INFORMACIÓN' WHERE "id_motivo" = '11'
+INSERT INTO "motivos" ("motivo") VALUES ('DFSFASFASD')
+UPDATE "motivos" SET "motivo" = 'HDFGHDFGH' WHERE "id_motivo" = '13'
+DELETE FROM "motivos" WHERE "id_motivo" = '13'

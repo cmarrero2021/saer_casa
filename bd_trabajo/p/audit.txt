@@ -1,0 +1,173 @@
+estructura_20181024_1755.sql:-- Name: audit; Type: SCHEMA; Schema: -; Owner: postgres
+estructura_20181024_1755.sql:CREATE SCHEMA audit;
+estructura_20181024_1755.sql:ALTER SCHEMA audit OWNER TO postgres;
+estructura_20181024_1755.sql:-- Name: SCHEMA audit; Type: COMMENT; Schema: -; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON SCHEMA audit IS 'Out-of-table audit/history logging tables and trigger functions';
+estructura_20181024_1755.sql:-- Name: audit_table(regclass); Type: FUNCTION; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:CREATE FUNCTION audit.audit_table(target_table regclass) RETURNS void
+estructura_20181024_1755.sql:SELECT audit.audit_table($1, BOOLEAN 't', BOOLEAN 't');
+estructura_20181024_1755.sql:ALTER FUNCTION audit.audit_table(target_table regclass) OWNER TO postgres;
+estructura_20181024_1755.sql:-- Name: FUNCTION audit_table(target_table regclass); Type: COMMENT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON FUNCTION audit.audit_table(target_table regclass) IS '
+estructura_20181024_1755.sql:Add auditing support to the given table. Row-level changes will be logged with full client query text. No cols are ignored.
+estructura_20181024_1755.sql:-- Name: audit_table(regclass, boolean, boolean); Type: FUNCTION; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:CREATE FUNCTION audit.audit_table(target_table regclass, audit_rows boolean, audit_query_text boolean) RETURNS void
+estructura_20181024_1755.sql:SELECT audit.audit_table($1, $2, $3, ARRAY[]::text[]);
+estructura_20181024_1755.sql:ALTER FUNCTION audit.audit_table(target_table regclass, audit_rows boolean, audit_query_text boolean) OWNER TO postgres;
+estructura_20181024_1755.sql:-- Name: audit_table(regclass, boolean, boolean, text[]); Type: FUNCTION; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:CREATE FUNCTION audit.audit_table(target_table regclass, audit_rows boolean, audit_query_text boolean, ignored_cols text[]) RETURNS void
+estructura_20181024_1755.sql:    EXECUTE 'DROP TRIGGER IF EXISTS audit_trigger_row ON ' || quote_ident(target_table::TEXT);
+estructura_20181024_1755.sql:    EXECUTE 'DROP TRIGGER IF EXISTS audit_trigger_stm ON ' || quote_ident(target_table::TEXT);
+estructura_20181024_1755.sql:    IF audit_rows THEN
+estructura_20181024_1755.sql:        _q_txt = 'CREATE TRIGGER audit_trigger_row AFTER INSERT OR UPDATE OR DELETE ON ' || 
+estructura_20181024_1755.sql:                 ' FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func(' ||
+estructura_20181024_1755.sql:                 quote_literal(audit_query_text) || _ignored_cols_snip || ');';
+estructura_20181024_1755.sql:    _q_txt = 'CREATE TRIGGER audit_trigger_stm AFTER ' || stm_targets || ' ON ' ||
+estructura_20181024_1755.sql:             ' FOR EACH STATEMENT EXECUTE PROCEDURE audit.if_modified_func('||
+estructura_20181024_1755.sql:             quote_literal(audit_query_text) || ');';
+estructura_20181024_1755.sql:ALTER FUNCTION audit.audit_table(target_table regclass, audit_rows boolean, audit_query_text boolean, ignored_cols text[]) OWNER TO postgres;
+estructura_20181024_1755.sql:-- Name: FUNCTION audit_table(target_table regclass, audit_rows boolean, audit_query_text boolean, ignored_cols text[]); Type: COMMENT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON FUNCTION audit.audit_table(target_table regclass, audit_rows boolean, audit_query_text boolean, ignored_cols text[]) IS '
+estructura_20181024_1755.sql:Add auditing support to a table.
+estructura_20181024_1755.sql:   audit_rows:       Record each row change, or only audit at a statement level
+estructura_20181024_1755.sql:   audit_query_text: Record the text of the client query that triggered the audit event?
+estructura_20181024_1755.sql:-- Name: if_modified_func(); Type: FUNCTION; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:CREATE FUNCTION audit.if_modified_func() RETURNS trigger
+estructura_20181024_1755.sql:    audit_row audit.logged_actions;
+estructura_20181024_1755.sql:        RAISE EXCEPTION 'audit.if_modified_func() may only run as an AFTER trigger';
+estructura_20181024_1755.sql:    audit_row = ROW(
+estructura_20181024_1755.sql:        nextval('audit.logged_actions_event_id_seq'), -- event_id
+estructura_20181024_1755.sql:        audit_row.client_query = NULL;
+estructura_20181024_1755.sql:        audit_row.row_data = hstore(OLD.*) - excluded_cols;
+estructura_20181024_1755.sql:        audit_row.changed_fields =  (hstore(NEW.*) - audit_row.row_data) - excluded_cols;
+estructura_20181024_1755.sql:        IF audit_row.changed_fields = hstore('') THEN
+estructura_20181024_1755.sql:        audit_row.row_data = hstore(OLD.*) - excluded_cols;
+estructura_20181024_1755.sql:        audit_row.row_data = hstore(NEW.*) - excluded_cols;
+estructura_20181024_1755.sql:        audit_row.statement_only = 't';
+estructura_20181024_1755.sql:        RAISE EXCEPTION '[audit.if_modified_func] - Trigger func added as trigger for unhandled case: %, %',TG_OP, TG_LEVEL;
+estructura_20181024_1755.sql:    	INSERT INTO audit.logged_actions VALUES (audit_row.*);
+estructura_20181024_1755.sql:ALTER FUNCTION audit.if_modified_func() OWNER TO postgres;
+estructura_20181024_1755.sql:-- Name: FUNCTION if_modified_func(); Type: COMMENT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON FUNCTION audit.if_modified_func() IS '
+estructura_20181024_1755.sql:         into the audit log.
+estructura_20181024_1755.sql:Note that the user name logged is the login role for the session. The audit trigger
+estructura_20181024_1755.sql:of the audit trigger its self.
+estructura_20181024_1755.sql:-- Name: logged_actions; Type: TABLE; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:CREATE TABLE audit.logged_actions (
+estructura_20181024_1755.sql:ALTER TABLE audit.logged_actions OWNER TO postgres;
+estructura_20181024_1755.sql:-- Name: TABLE logged_actions; Type: COMMENT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON TABLE audit.logged_actions IS 'History of auditable actions on audited tables, from audit.if_modified_func()';
+estructura_20181024_1755.sql:-- Name: COLUMN logged_actions.event_id; Type: COMMENT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON COLUMN audit.logged_actions.event_id IS 'Unique identifier for each auditable event';
+estructura_20181024_1755.sql:-- Name: COLUMN logged_actions.schema_name; Type: COMMENT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON COLUMN audit.logged_actions.schema_name IS 'Database schema audited table for this event is in';
+estructura_20181024_1755.sql:-- Name: COLUMN logged_actions.table_name; Type: COMMENT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON COLUMN audit.logged_actions.table_name IS 'Non-schema-qualified table name of table event occured in';
+estructura_20181024_1755.sql:-- Name: COLUMN logged_actions.relid; Type: COMMENT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON COLUMN audit.logged_actions.relid IS 'Table OID. Changes with drop/create. Get with ''tablename''::regclass';
+estructura_20181024_1755.sql:-- Name: COLUMN logged_actions.session_user_name; Type: COMMENT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON COLUMN audit.logged_actions.session_user_name IS 'Login / session user whose statement caused the audited event';
+estructura_20181024_1755.sql:-- Name: COLUMN logged_actions.action_tstamp_tx; Type: COMMENT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON COLUMN audit.logged_actions.action_tstamp_tx IS 'Transaction start timestamp for tx in which audited event occurred';
+estructura_20181024_1755.sql:-- Name: COLUMN logged_actions.action_tstamp_stm; Type: COMMENT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON COLUMN audit.logged_actions.action_tstamp_stm IS 'Statement start timestamp for tx in which audited event occurred';
+estructura_20181024_1755.sql:-- Name: COLUMN logged_actions.action_tstamp_clk; Type: COMMENT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON COLUMN audit.logged_actions.action_tstamp_clk IS 'Wall clock time at which audited event''s trigger call occurred';
+estructura_20181024_1755.sql:-- Name: COLUMN logged_actions.transaction_id; Type: COMMENT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON COLUMN audit.logged_actions.transaction_id IS 'Identifier of transaction that made the change. May wrap, but unique paired with action_tstamp_tx.';
+estructura_20181024_1755.sql:-- Name: COLUMN logged_actions.application_name; Type: COMMENT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON COLUMN audit.logged_actions.application_name IS 'Application name set when this audit event occurred. Can be changed in-session by client.';
+estructura_20181024_1755.sql:-- Name: COLUMN logged_actions.client_addr; Type: COMMENT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON COLUMN audit.logged_actions.client_addr IS 'IP address of client that issued query. Null for unix domain socket.';
+estructura_20181024_1755.sql:-- Name: COLUMN logged_actions.client_port; Type: COMMENT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON COLUMN audit.logged_actions.client_port IS 'Remote peer IP port address of client that issued query. Undefined for unix socket.';
+estructura_20181024_1755.sql:-- Name: COLUMN logged_actions.client_query; Type: COMMENT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON COLUMN audit.logged_actions.client_query IS 'Top-level query that caused this auditable event. May be more than one statement.';
+estructura_20181024_1755.sql:-- Name: COLUMN logged_actions.action; Type: COMMENT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON COLUMN audit.logged_actions.action IS 'Action type; I = insert, D = delete, U = update, T = truncate';
+estructura_20181024_1755.sql:-- Name: COLUMN logged_actions.row_data; Type: COMMENT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON COLUMN audit.logged_actions.row_data IS 'Record value. Null for statement-level trigger. For INSERT this is the new tuple. For DELETE and UPDATE it is the old tuple.';
+estructura_20181024_1755.sql:-- Name: COLUMN logged_actions.changed_fields; Type: COMMENT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON COLUMN audit.logged_actions.changed_fields IS 'New values of fields changed by UPDATE. Null except for row-level UPDATE events.';
+estructura_20181024_1755.sql:-- Name: COLUMN logged_actions.statement_only; Type: COMMENT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:COMMENT ON COLUMN audit.logged_actions.statement_only IS '''t'' if audit event is from an FOR EACH STATEMENT trigger, ''f'' for FOR EACH ROW';
+estructura_20181024_1755.sql:-- Name: logged_actions_event_id_seq; Type: SEQUENCE; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:CREATE SEQUENCE audit.logged_actions_event_id_seq
+estructura_20181024_1755.sql:ALTER TABLE audit.logged_actions_event_id_seq OWNER TO postgres;
+estructura_20181024_1755.sql:-- Name: logged_actions_event_id_seq; Type: SEQUENCE OWNED BY; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:ALTER SEQUENCE audit.logged_actions_event_id_seq OWNED BY audit.logged_actions.event_id;
+estructura_20181024_1755.sql:-- Name: vreciente; Type: VIEW; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:CREATE VIEW audit.vreciente AS
+estructura_20181024_1755.sql:   FROM audit.logged_actions
+estructura_20181024_1755.sql:           FROM audit.logged_actions logged_actions_1))
+estructura_20181024_1755.sql:ALTER TABLE audit.vreciente OWNER TO postgres;
+estructura_20181024_1755.sql:-- Name: auditoria; Type: TABLE; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TABLE public.auditoria (
+estructura_20181024_1755.sql:    id_auditoria integer NOT NULL,
+estructura_20181024_1755.sql:ALTER TABLE public.auditoria OWNER TO postgres;
+estructura_20181024_1755.sql:-- Name: auditoria_id_auditoria_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE SEQUENCE public.auditoria_id_auditoria_seq
+estructura_20181024_1755.sql:ALTER TABLE public.auditoria_id_auditoria_seq OWNER TO postgres;
+estructura_20181024_1755.sql:-- Name: auditoria_id_auditoria_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:ALTER SEQUENCE public.auditoria_id_auditoria_seq OWNED BY public.auditoria.id_auditoria;
+estructura_20181024_1755.sql:-- Name: logged_actions event_id; Type: DEFAULT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:ALTER TABLE ONLY audit.logged_actions ALTER COLUMN event_id SET DEFAULT nextval('audit.logged_actions_event_id_seq'::regclass);
+estructura_20181024_1755.sql:-- Name: auditoria id_auditoria; Type: DEFAULT; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:ALTER TABLE ONLY public.auditoria ALTER COLUMN id_auditoria SET DEFAULT nextval('public.auditoria_id_auditoria_seq'::regclass);
+estructura_20181024_1755.sql:-- Name: logged_actions logged_actions_pkey; Type: CONSTRAINT; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:ALTER TABLE ONLY audit.logged_actions
+estructura_20181024_1755.sql:-- Name: auditoria pkey_auditoria_id_auditoria; Type: CONSTRAINT; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:ALTER TABLE ONLY public.auditoria
+estructura_20181024_1755.sql:    ADD CONSTRAINT pkey_auditoria_id_auditoria PRIMARY KEY (id_auditoria);
+estructura_20181024_1755.sql:-- Name: logged_actions_action_idx; Type: INDEX; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:CREATE INDEX logged_actions_action_idx ON audit.logged_actions USING btree (action);
+estructura_20181024_1755.sql:-- Name: logged_actions_action_tstamp_tx_stm_idx; Type: INDEX; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:CREATE INDEX logged_actions_action_tstamp_tx_stm_idx ON audit.logged_actions USING btree (action_tstamp_stm);
+estructura_20181024_1755.sql:-- Name: logged_actions_relid_idx; Type: INDEX; Schema: audit; Owner: postgres
+estructura_20181024_1755.sql:CREATE INDEX logged_actions_relid_idx ON audit.logged_actions USING btree (relid);
+estructura_20181024_1755.sql:-- Name: procedencias audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.procedencias FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: autorizacion audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.autorizacion FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: coordinaciones audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.coordinaciones FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: inicio audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.inicio FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: oficinas audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.oficinas FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: rat audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.rat FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: unidades audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.unidades FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: pisos audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.pisos FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: pueblos audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.pueblos FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: status_carnets audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.status_carnets FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: tipovisitantes audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.tipovisitantes FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: tipo_visitante audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.tipo_visitante FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: motivos audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.motivos FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: entidades audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.entidades FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: usuarios audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.usuarios FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: carnets audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.carnets FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: visitantes audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.visitantes FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: grupos audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.grupos FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: permisos audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.permisos FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: empresas audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.empresas FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: visitas audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.visitas FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: trabajadores audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.trabajadores FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
+estructura_20181024_1755.sql:-- Name: destinos audit_trigger_row; Type: TRIGGER; Schema: public; Owner: postgres
+estructura_20181024_1755.sql:CREATE TRIGGER audit_trigger_row AFTER INSERT OR DELETE OR UPDATE ON public.destinos FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();
